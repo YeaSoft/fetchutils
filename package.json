@@ -1,0 +1,43 @@
+{
+	"name": "@yeasoft/fetchutils",
+	"version": "0.17.0",
+	"description": "Useful stuff for fetsching data",
+	"author": {
+		"name": "Leo Moll"
+	},
+	"license": "MIT",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"bugs": "https://github.com/YeaSoft/fetchutils/issues",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/YeaSoft/fetchutils.git"
+	},
+	"eslintConfig": {
+		"env": {
+			"es6": true,
+			"node": true
+		},
+		"extends": "eslint:recommended",
+		"globals": {
+			"Atomics": "readonly",
+			"SharedArrayBuffer": "readonly"
+		},
+		"parserOptions": {
+			"ecmaVersion": 2018
+		},
+		"rules": {}
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@types/node": "^15.6.1",
+		"@yeasoft/baseutils": "^0.40.0",
+		"deepmerge": "^4.2.2",
+		"fetch-blob": "^2.1.2",
+		"form-data": "^4.0.0",
+		"node-fetch": "^2.6.1",
+		"query-string": "^7.0.0"
+	}
+}

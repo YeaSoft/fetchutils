@@ -1,7 +1,7 @@
 {
 	"name": "@yeasoft/fetchutils",
-	"version": "0.17.0",
-	"description": "Useful stuff for fetsching data",
+	"version": "0.18.0",
+	"description": "Useful stuff for fetching data",
 	"author": {
 		"name": "Leo Moll"
 	},
@@ -24,7 +24,7 @@
 			"SharedArrayBuffer": "readonly"
 		},
 		"parserOptions": {
-			"ecmaVersion": 2018
+			"ecmaVersion": 2020
 		},
 		"rules": {}
 	},
@@ -32,12 +32,15 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@types/node": "^15.6.1",
-		"@yeasoft/baseutils": "^0.40.0",
+		"@types/node": "^18.0.3",
+		"@yeasoft/baseutils": "^0.42.0",
 		"deepmerge": "^4.2.2",
 		"fetch-blob": "^2.1.2",
 		"form-data": "^4.0.0",
-		"node-fetch": "^2.6.1",
-		"query-string": "^7.0.0"
+		"node-fetch": "^2.6.5",
+		"query-string": "^7.1.1"
+	},
+	"devDependencies": {
+		"eslint": "^8.20.0"
 	}
 }

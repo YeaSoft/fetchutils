@@ -5,6 +5,7 @@
 class HttpStatusError extends Error {
 	constructor( message, status, res ) {
 		super( message );
+		this.status = status;
 		this.code = status;
 		this.res = res;
 	}

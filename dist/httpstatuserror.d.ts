@@ -2,10 +2,12 @@
 
 /**
  * Simple error class for http operations
+ * @property {number} status - The http result code
  * @property {number} code - The http result code
  * @property {any} res - The http operation result data
  */
 export class HttpStatusError extends Error {
+	readonly status: number;
 	readonly code: number;
 	readonly res: any;
 

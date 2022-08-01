@@ -126,6 +126,53 @@ class RequestHelper extends FetchHelper {
 		return '';
 	}
 
+	delete( url, data, options ) {
+		options = this._prepareOptions( options );
+		options = this._prepareBody( options, data );
+		options.method = 'DELETE';
+		return this._fetch( url, options );
+	}
+
+	deleteGetJson( url, data, options ) {
+		options = this._prepareOptions( options );
+		options = this._prepareBody( options, data );
+		options.method = 'DELETE';
+		options.onlysuccessful = true;
+		return this._fetch( url, options ).then( res => res.json() );
+	}
+
+	deleteGetText( url, data, options ) {
+		options = this._prepareOptions( options );
+		options = this._prepareBody( options, data );
+		options.method = 'DELETE';
+		options.onlysuccessful = true;
+		return this._fetch( url, options ).then( res => res.text() );
+	}
+
+	deleteGetBlob( url, data, options ) {
+		options = this._prepareOptions( options );
+		options = this._prepareBody( options, data );
+		options.method = 'DELETE';
+		options.onlysuccessful = true;
+		return this._fetch( url, options ).then( res => res.blob() );
+	}
+
+	deleteGetArrayBuffer( url, data, options ) {
+		options = this._prepareOptions( options );
+		options = this._prepareBody( options, data );
+		options.method = 'DELETE';
+		options.onlysuccessful = true;
+		return this._fetch( url, options ).then( res => res.arrayBuffer() );
+	}
+
+	deleteGetBuffer( url, data, options ) {
+		options = this._prepareOptions( options );
+		options = this._prepareBody( options, data );
+		options.method = 'DELETE';
+		options.onlysuccessful = true;
+		return this._fetch( url, options ).then( res => res.buffer() );
+	}
+
 	// _prepareBodyCall( method, url, data, options, callback ) {
 	// 	options = this._prepareOptions( options );
 	// 	options = this._prepareBody( options, data );

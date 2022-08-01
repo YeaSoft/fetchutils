@@ -63,7 +63,7 @@ export class RequestHelper extends FetchHelper {
 	 * Performs an http/https GET request.
 	 *
 	 * This method performs an http GET request with the supplied `params` encoded into the URL.
-	 * The returned promise reeturns the resulting request.
+	 * The returned promise returns the resulting request.
 	 *
 	 * @param url - A string representing the URL for fetching. If either the RequestHelper options
 	 *              or the supplied options provide a `baseurl`, this value must be relative since
@@ -165,7 +165,7 @@ export class RequestHelper extends FetchHelper {
 	 * Performs an http/https POST request.
 	 *
 	 * This method performs an http POST request with the supplied `params` encoded into the body.
-	 * The returned promise reeturns the resulting request.
+	 * The returned promise returns the resulting request.
 	 *
 	 * * params of type `string` are sent verbatim. If not specified in the headers, the Content-Type will be set to `text/plain`
 	 * * params of type `Blob` are sent verbatim. If not specified in the headers, the Content-Type will be set from the type stored in the Blob or or `application/octet-stream` if no type was stored.
@@ -315,4 +315,159 @@ export class RequestHelper extends FetchHelper {
 	 * @return Promise<Buffer>
 	 */
 	postGetBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Buffer>
+
+	/**
+	 * Performs an http/https DELETE request.
+	 *
+	 * This method performs an http DELETE request with the supplied `params` encoded into the body.
+	 * The returned promise returns the resulting request.
+	 *
+	 * * params of type `string` are sent verbatim. If not specified in the headers, the Content-Type will be set to `text/plain`
+	 * * params of type `Blob` are sent verbatim. If not specified in the headers, the Content-Type will be set from the type stored in the Blob or or `application/octet-stream` if no type was stored.
+	 * * params of type `Buffer` or `ArrayBuffer` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Readable` or `Duplex` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Object` are sent based on the encoding specified in the Content-Type header. If no Content-Type header is specified, `application/json` is assumed. All json types and `application/x-www-form-urlencoded` are currently supported.
+	 *
+	 * @param url - A string representing the URL for fetching. If either the RequestHelper options
+	 *              or the supplied options provide a `baseurl`, this value must be relative since
+	 *              it is concatenated to the `baseurl`.
+	 * @param params - Optional object containing the parameters sent with the request. These
+	 *                 parameters will be encoded into the body according to the passed type and
+	 *                 supplied encoding header
+	 * @param options - Optional options or the http requests that will override the options
+	 *                  provided for the object.
+	 * @return Promise<Response>
+	 */
+	delete( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Response>
+
+	/**
+	 * Performs an http/https DELETE request.
+	 *
+	 * This method performs an http DELETE request with the supplied `params` encoded into the body
+	 * and expects a JSON encoded reponse. If the request was unsuccesful (http status >= 400),
+	 * an HttpStatusException is thrown. If the decoding fails, an exception is thrown. The
+	 * returned promise returns the decoded result.
+	 *
+	 * * params of type `string` are sent verbatim. If not specified in the headers, the Content-Type will be set to `text/plain`
+	 * * params of type `Blob` are sent verbatim. If not specified in the headers, the Content-Type will be set from the type stored in the Blob or or `application/octet-stream` if no type was stored.
+	 * * params of type `Buffer` or `ArrayBuffer` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Readable` or `Duplex` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Object` are sent based on the encoding specified in the Content-Type header. If no Content-Type header is specified, `application/json` is assumed. All json types and `application/x-www-form-urlencoded` are currently supported.
+	 *
+	 * @param url - A string representing the URL for fetching. If either the RequestHelper options
+	 *              or the supplied options provide a `baseurl`, this value must be relative since
+	 *              it is concatenated to the `baseurl`.
+	 * @param params - Optional object containing the parameters sent with the request. These
+	 *                 parameters will be encoded into the body according to the passed type and
+	 *                 supplied encoding header
+	 * @param options - Optional options or the http requests that will override the options
+	 *                  provided for the object.
+	 * @return Promise<boolean | number | string | Array | Object>
+	 */
+	deleteGetJson( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<boolean | number | string | Array | Object>
+
+	/**
+	 * Performs an http/https DELETE request.
+	 *
+	 * This method performs an http DELETE request with the supplied `params` encoded into the body.
+	 * If the request was unsuccesful (http status >= 400), an HttpStatusException is thrown.
+	 * If the decoding fails, an exception is thrown. The returned promise returns the decoded
+	 * result as a string.
+	 *
+	 * * params of type `string` are sent verbatim. If not specified in the headers, the Content-Type will be set to `text/plain`
+	 * * params of type `Blob` are sent verbatim. If not specified in the headers, the Content-Type will be set from the type stored in the Blob or or `application/octet-stream` if no type was stored.
+	 * * params of type `Buffer` or `ArrayBuffer` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Readable` or `Duplex` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Object` are sent based on the encoding specified in the Content-Type header. If no Content-Type header is specified, `application/json` is assumed. All json types and `application/x-www-form-urlencoded` are currently supported.
+	 *
+	 * @param url - A string representing the URL for fetching. If either the RequestHelper options
+	 *              or the supplied options provide a `baseurl`, this value must be relative since
+	 *              it is concatenated to the `baseurl`.
+	 * @param params - Optional object containing the parameters sent with the request. These
+	 *                 parameters will be encoded into the body according to the passed type and
+	 *                 supplied encoding header
+	 * @param options - Optional options or the http requests that will override the options
+	 *                  provided for the object.
+	 * @return Promise<string>
+	 */
+	deleteGetText( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<string>
+
+	/**
+	 * Performs an http/https DELETE request.
+	 *
+	 * This method performs an http DELETE request with the supplied `params` encoded into the body.
+	 * If the request was unsuccesful (http status >= 400), an HttpStatusException is thrown.
+	 * If the decoding fails, an exception is thrown. The returned promise returns the decoded
+	 * result as a `Blob`.
+	 *
+	 * * params of type `string` are sent verbatim. If not specified in the headers, the Content-Type will be set to `text/plain`
+	 * * params of type `Blob` are sent verbatim. If not specified in the headers, the Content-Type will be set from the type stored in the Blob or or `application/octet-stream` if no type was stored.
+	 * * params of type `Buffer` or `ArrayBuffer` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Readable` or `Duplex` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Object` are sent based on the encoding specified in the Content-Type header. If no Content-Type header is specified, `application/json` is assumed. All json types and `application/x-www-form-urlencoded` are currently supported.
+	 *
+	 * @param url - A string representing the URL for fetching. If either the RequestHelper options
+	 *              or the supplied options provide a `baseurl`, this value must be relative since
+	 *              it is concatenated to the `baseurl`.
+	 * @param params - Optional object containing the parameters sent with the request. These
+	 *                 parameters will be encoded into the body according to the passed type and
+	 *                 supplied encoding header
+	 * @param options - Optional options or the http requests that will override the options
+	 *                  provided for the object.
+	 * @return Promise<Blob>
+	 */
+	deleteGetBlob( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Blob>
+
+	/**
+	 * Performs an http/https DELETE request.
+	 *
+	 * This method performs an http DELETE request with the supplied `params` encoded into the body.
+	 * If the request was unsuccesful (http status >= 400), an HttpStatusException is thrown.
+	 * If the decoding fails, an exception is thrown. The returned promise returns the decoded
+	 * result as an `ArrayBuffer`.
+	 *
+	 * * params of type `string` are sent verbatim. If not specified in the headers, the Content-Type will be set to `text/plain`
+	 * * params of type `Blob` are sent verbatim. If not specified in the headers, the Content-Type will be set from the type stored in the Blob or or `application/octet-stream` if no type was stored.
+	 * * params of type `Buffer` or `ArrayBuffer` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Readable` or `Duplex` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Object` are sent based on the encoding specified in the Content-Type header. If no Content-Type header is specified, `application/json` is assumed. All json types and `application/x-www-form-urlencoded` are currently supported.
+	 *
+	 * @param url - A string representing the URL for fetching. If either the RequestHelper options
+	 *              or the supplied options provide a `baseurl`, this value must be relative since
+	 *              it is concatenated to the `baseurl`.
+	 * @param params - Optional object containing the parameters sent with the request. These
+	 *                 parameters will be encoded into the body according to the passed type and
+	 *                 supplied encoding header
+	 * @param options - Optional options or the http requests that will override the options
+	 *                  provided for the object.
+	 * @return Promise<ArrayBuffer>
+	 */
+	deleteGetArrayBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<ArrayBuffer>
+
+
+	/**
+	 * Performs an http/https DELETE request.
+	 *
+	 * This method performs an http DELETE request with the supplied `params` encoded into the body.
+	 * If the request was unsuccesful (http status >= 400), an HttpStatusException is thrown.
+	 * If the decoding fails, an exception is thrown. The returned promise returns the decoded
+	 * result as an `Buffer`.
+	 *
+	 * * params of type `string` are sent verbatim. If not specified in the headers, the Content-Type will be set to `text/plain`
+	 * * params of type `Blob` are sent verbatim. If not specified in the headers, the Content-Type will be set from the type stored in the Blob or or `application/octet-stream` if no type was stored.
+	 * * params of type `Buffer` or `ArrayBuffer` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Readable` or `Duplex` are sent verbatim. If not specified in the headers, the Content-Type will be set to `application/octet-stream`
+	 * * params of type `Object` are sent based on the encoding specified in the Content-Type header. If no Content-Type header is specified, `application/json` is assumed. All json types and `application/x-www-form-urlencoded` are currently supported.
+	 *
+	 * @param url - A string representing the URL for fetching. If either the RequestHelper options
+	 *              or the supplied options provide a `baseurl`, this value must be relative since
+	 *              it is concatenated to the `baseurl`.
+	 * @param params - Optional object containing the parameters sent with the request. These
+	 *                 parameters will be encoded into the body according to the passed type and
+	 *                 supplied encoding header
+	 * @param options - Optional options or the http requests that will override the options
+	 *                  provided for the object.
+	 * @return Promise<Buffer>
+	 */
+	deleteGetBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Buffer>
 }

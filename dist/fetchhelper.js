@@ -15,10 +15,12 @@ class FetchHelper {
 		ensureObjMember( this.defaults, 'headers', {} );
 		ensureObjMember( this.defaults, 'auth', {} );
 		// separate internal settings from mode-fetch options
-		let fhoptions = this._extractOptions( this.defaults, [ 'auth', 'onlysuccessful', 'baseurl' ] );
+		const fhoptions = this._extractOptions( this.defaults, [ 'auth', 'onlysuccessful', 'baseurl', 'agent', 'proxy' ] );
 		this.setAuth( fhoptions.auth );
 		this.setOnlySuccesful( fhoptions.onlysuccessful );
 		this.setBaseUrl( fhoptions.baseurl );
+		this.setAgent( fhoptions.agent );
+		this.setProxy( fhoptions.proxy );
 	}
 
 	fetch( url, options ) {
@@ -35,6 +37,26 @@ class FetchHelper {
 
 	setBaseUrl( url ) {
 		this.baseurl = getSpecifiedStr( url, '' );
+	}
+
+	setAgent( agent ) {
+		this.agent = agent;
+	}
+
+	setProxy( proxy ) {
+		if ( ( proxy instanceof Object || typeof proxy === 'string' || proxy === true ) || !this.agent ) {
+			const { ProxyAgent } = require( 'proxy-agent' );
+
+			if ( proxy instanceof Object ) {
+				this.agent = new ProxyAgent( proxy );
+			}
+			else if ( typeof proxy === 'string' ) {
+				this.agent = new ProxyAgent( { getProxyForUrl: () => proxy } );
+			}
+			else if ( proxy === true ) {
+				this.agent = new ProxyAgent();
+			}
+		}
 	}
 
 	setOnlySuccesful( onlysuccessful ) {
@@ -65,6 +87,10 @@ class FetchHelper {
 		delete result.auth;
 		if ( auth ) {
 			result.headers[ 'Authorization' ] = auth;
+		}
+		// set proxy if needed
+		if ( this.agent ) {
+			result.agent = this.agent;
 		}
 		return result;
 	}

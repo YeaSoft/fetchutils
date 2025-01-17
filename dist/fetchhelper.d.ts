@@ -50,6 +50,15 @@ export interface FetchHelperOptions {
 	 * If specified, all requests will send the corresponding authentication data
 	 */
 	auth?: FetchAuth | FetchBasicAuth;
+	/**
+	 * If specified, the request will be routed via the specified proxy. It `true`, the
+	 * proxy is taken from enviroment variables. (*_PROXY and NO_PROXY -
+	 * See https://www.npmjs.com/package/proxy-from-env)
+	 *
+	 * This option has **no effect** if used in conjunction with the option
+	 * `agent`. In this case the option is ignored.
+	 */
+	proxy?: boolean | string;
 
 	/**
 	 * A request body. can be null, a string, a Buffer, a Blob, or a Node.js Readable stream.

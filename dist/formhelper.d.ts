@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { FormData } from 'form-data';
+import FormData from 'form-data';
 
 import { Response, BodyInit, HeadersInit, RequestRedirect } from "node-fetch";
 import { FetchAuth, FetchBasicAuth, FetchHelperOptions, FetchHelper } from "./fetchhelper";
@@ -70,7 +70,7 @@ export class FormHelper extends FetchHelper {
 	 *                  provided for the object.
 	 * @return Promise<boolean | number | string | Array | Object>
 	 */
-	postGetJson( url?: string, options?: FormHelperOptions ): Promise<boolean | number | string | Array | Object>;
+	postGetJson( url?: string, options?: FormHelperOptions ): Promise<boolean | number | string | Array<any> | Object>;
 
 	/**
 	 * Submits the form.
@@ -102,7 +102,7 @@ export class FormHelper extends FetchHelper {
 	 *                  provided for the object.
 	 * @return Promise<boolean | number | string | Array | Object>
 	 */
-	submitGetJson( url?: string, options?: FormHelperOptions ): Promise<boolean | number | string | Array | Object>;
+	submitGetJson( url?: string, options?: FormHelperOptions ): Promise<boolean | number | string | Array<any> | Object>;
 
 	/**
 	 * Append data to the form.

@@ -125,7 +125,7 @@ function prepareAuth( auth ) {
 	else if ( typeof auth.credentials === 'function' ) {
 		return getSpecifiedStr( auth.authtype, 'Bearer' ) + ' ' + auth.credentials();
 	}
-	else if ( typeof credentials === 'string' ) {
+	else if ( typeof auth.credentials === 'string' ) {
 		return getSpecifiedStr( auth.authtype, 'Bearer' ) + ' ' + auth.credentials;
 	}
 	return undefined;

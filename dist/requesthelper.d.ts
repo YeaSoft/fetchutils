@@ -1,5 +1,6 @@
 /// <reference types="node" />
 
+import { Readable, Duplex } from "node:stream";
 import { Response } from "node-fetch";
 import { FetchHelperOptions, FetchHelper } from "./fetchhelper";
 
@@ -9,11 +10,13 @@ import { FetchHelperOptions, FetchHelper } from "./fetchhelper";
 export interface RequestHelperOptions extends FetchHelperOptions {
 	/**
 	 * Strictly encode URI components with `strict-uri-encode`. It uses `encodeURIComponent` if
-	 * set to `false`. You probably don't care about this option. Default is `true`
+	 * set to `false`. You probably don't care about this option.
+	 * @default true
 	 */
 	strict?: boolean;
 	/**
-	 * URL encode the keys and values. Default is `true`
+	 * URL encode the keys and values.
+	 * @default true
 	 */
 	encode?: boolean;
 	/**
@@ -21,7 +24,7 @@ export interface RequestHelperOptions extends FetchHelperOptions {
 	 * If omitted, keys are sorted using `Array#sort()`, which means, converting them to strings
 	 * and comparing strings in Unicode code point order.
 	 */
-	sort?: Function | boolean;
+	sort?: ( item1: string, item2: string ) => number | boolean;
 	/**
 	 * Defines how arrays are encoded. Default value is `'none'`. The following options are possible:
 	 * * `'none'`: Serialize arrays by using duplicate keys
@@ -30,20 +33,23 @@ export interface RequestHelperOptions extends FetchHelperOptions {
 	 * * `'comma'`: Serialize arrays by separating elements with comma
 	 * * `'separator'`: Serialize arrays by separating elements with a custom character
 	 * * `'bracket-separator'`: Serialize arrays by explicitly post-fixing array names with brackets and separating elements with a custom character
+	 * @default none - Serialize arrays by using duplicate keys
 	 */
 	arrayFormat?: string;
 	/**
 	 * The character used to separate array elements when using `{arrayFormat: 'separator'}`
-	 * Default value is `','`
+	 * @default ,
 	 */
 	arrayFormatSeparator?: string;
 	/**
-	 * Skip keys with `null` as the value. Default value is `false`.
+	 * Skip keys with `null` as the value.
 	 * Note that keys with `undefined` as the value are always skipped.
+	 * @default false
 	 */
 	skipNull?: boolean;
 	/**
-	 * Skip keys with an empty string as the value. Default value is `false`
+	 * Skip keys with an empty string as the value.
+	 * @default false
 	 */
 	skipEmptyString?: boolean;
 }
@@ -71,9 +77,8 @@ export class RequestHelper extends FetchHelper {
 	 * @param params - Optional object containing the parameters sent with the request
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<Response>
 	 */
-	get( url: string, params?: Object, options?: RequestHelperOptions ): Promise<Response>
+	get( url: string, params?: Object, options?: RequestHelperOptions ): Promise<Response>;
 
 	/**
 	 * Performs an http/https GET request.
@@ -88,9 +93,8 @@ export class RequestHelper extends FetchHelper {
 	 * @param params - Optional object containing the parameters sent with the request
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<boolean | number | string | Array | Object>
 	 */
-	getGetJson( url: string, params?: Object, options?: RequestHelperOptions ): Promise<boolean | number | string | Array | Object>;
+	getGetJson( url: string, params?: Object, options?: RequestHelperOptions ): Promise<boolean | number | string | Array<any> | Object>;
 
 	/**
 	 * Performs an http/https GET request.
@@ -105,7 +109,6 @@ export class RequestHelper extends FetchHelper {
 	 * @param params - Optional object containing the parameters sent with the request
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<string>
 	 */
 	getGetText( url: string, params?: Object, options?: RequestHelperOptions ): Promise<string>;
 
@@ -122,7 +125,6 @@ export class RequestHelper extends FetchHelper {
 	 * @param params - Optional object containing the parameters sent with the request
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<Blob>
 	 */
 	getGetBlob( url: string, params?: Object, options?: RequestHelperOptions ): Promise<Blob>;
 
@@ -139,7 +141,6 @@ export class RequestHelper extends FetchHelper {
 	 * @param params - Optional object containing the parameters sent with the request
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<ArrayBuffer>
 	 */
 	getArrayBuffer( url: string, params?: Object, options?: RequestHelperOptions ): Promise<ArrayBuffer>;
 
@@ -156,7 +157,6 @@ export class RequestHelper extends FetchHelper {
 	 * @param params - Optional object containing the parameters sent with the request
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<Buffer>
 	 */
 	getBuffer( url: string, params?: Object, options?: RequestHelperOptions ): Promise<Buffer>;
 
@@ -181,9 +181,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<Response>
 	 */
-	post( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Response>
+	post( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Response>;
 
 	/**
 	 * Performs an http/https POST request.
@@ -207,9 +206,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<boolean | number | string | Array | Object>
 	 */
-	postGetJson( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<boolean | number | string | Array | Object>
+	postGetJson( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<boolean | number | string | Array<any> | Object>;
 
 	/**
 	 * Performs an http/https POST request.
@@ -233,9 +231,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<string>
 	 */
-	postGetText( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<string>
+	postGetText( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<string>;
 
 	/**
 	 * Performs an http/https POST request.
@@ -259,9 +256,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<Blob>
 	 */
-	postGetBlob( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Blob>
+	postGetBlob( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Blob>;
 
 	/**
 	 * Performs an http/https POST request.
@@ -285,9 +281,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<ArrayBuffer>
 	 */
-	postGetArrayBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<ArrayBuffer>
+	postGetArrayBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<ArrayBuffer>;
 
 
 	/**
@@ -312,9 +307,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<Buffer>
 	 */
-	postGetBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Buffer>
+	postGetBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Buffer>;
 
 	/**
 	 * Performs an http/https DELETE request.
@@ -336,9 +330,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<Response>
 	 */
-	delete( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Response>
+	delete( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Response>;
 
 	/**
 	 * Performs an http/https DELETE request.
@@ -362,9 +355,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<boolean | number | string | Array | Object>
 	 */
-	deleteGetJson( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<boolean | number | string | Array | Object>
+	deleteGetJson( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<boolean | number | string | Array<any> | Object>;
 
 	/**
 	 * Performs an http/https DELETE request.
@@ -388,9 +380,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<string>
 	 */
-	deleteGetText( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<string>
+	deleteGetText( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<string>;
 
 	/**
 	 * Performs an http/https DELETE request.
@@ -414,9 +405,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<Blob>
 	 */
-	deleteGetBlob( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Blob>
+	deleteGetBlob( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Blob>;
 
 	/**
 	 * Performs an http/https DELETE request.
@@ -440,9 +430,8 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<ArrayBuffer>
 	 */
-	deleteGetArrayBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<ArrayBuffer>
+	deleteGetArrayBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<ArrayBuffer>;
 
 
 	/**
@@ -467,7 +456,6 @@ export class RequestHelper extends FetchHelper {
 	 *                 supplied encoding header
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<Buffer>
 	 */
-	deleteGetBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Buffer>
+	deleteGetBuffer( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<Buffer>;
 }

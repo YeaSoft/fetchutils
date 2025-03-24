@@ -12,14 +12,16 @@ import { FetchAuth, FetchBasicAuth, FetchHelperOptions, FetchHelper } from "./fe
  */
 export interface FormHelperOptions extends FetchHelperOptions {
 	/**
-	 * The maximum amount of bytes (or characters) to buffer. Default is 2097152 (2 MiB)
+	 * The maximum amount of bytes (or characters) to buffer.
+	 * @default 2097152 - (2 MiB)
 	 */
 	maxDataSize?: number;
 	/**
 	 * Whether to apply back pressure to the underlaying streams. If set to `false`,
 	 * the underlaying streams will never be paused. If set to `true`, the underlaying
 	 * streams will be paused right after being appended, as well as when
-	 * `delayedStream.pipe()` wants to throttle. Default is `true`
+	 * `delayedStream.pipe()` wants to throttle.
+	 * @default true
 	 */
 	pauseStreams?: boolean;
 }
@@ -112,7 +114,7 @@ export class FormHelper extends FetchHelper {
 	 *
 	 * @param field - Name of the form field
 	 * @param value - Value of the form field
-	 * @param options - Optional overrides for handling this specific form field. See `FormHelperOptions`
+	 * @param options - Optional overrides for handling this specific form field. See {@link FormHelperOptions}
 	 */
 	append( field: string, value: any, options?: FormData.AppendOptions | string ): void;
 
@@ -144,7 +146,7 @@ export class FormHelper extends FetchHelper {
 	 * errors and continue once the length has been calculated
 	 * @param callback - Callback function
 	 */
-	getLength( callback: ( error: Error | null, length: number ) => void ): void;
+	getLength( callback: ( error: Error | undefined, length: number ) => void ): void;
 
 	/**
 	 * Same as getLength but synchronous.

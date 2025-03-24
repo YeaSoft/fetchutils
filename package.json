@@ -17,7 +17,8 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@yeasoft/baseutils": "^0.42.0",
+		"@yeasoft/basetypes": "^1.0.0",
+		"@yeasoft/baseutils": "^1.0.1",
 		"deepmerge": "^4.3.1",
 		"fetch-blob": "^2.1.2",
 		"form-data": "^4.0.1",

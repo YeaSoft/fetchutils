@@ -5,9 +5,7 @@
 const fetch = require( 'node-fetch' );
 const merge = require( 'deepmerge' );
 const { getValidObj, getSpecifiedStr } = require( '@yeasoft/baseutils' );
-
-// load local modules
-const { HttpStatusError } = require( './httpstatuserror.js' );
+const { HttpStatusError } = require( '@yeasoft/basetypes' );
 
 class FetchHelper {
 	constructor( options ) {

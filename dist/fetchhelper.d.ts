@@ -4,6 +4,7 @@ import { Response, BodyInit, HeadersInit, RequestRedirect } from "node-fetch";
 import { Agent } from "http";
 import { URL } from "url";
 import { AbortSignal } from "node-fetch/externals";
+import { HttpStatusError } from "@yeasoft/basetypes";
 
 /**
  * Specify authentication information
@@ -15,7 +16,8 @@ export interface FetchAuth {
 	 */
 	credentials?: ( () => string ) | string;
 	/**
-	 * Optional authentication type. Default value is `Bearer`
+	 * Optional authentication type.
+	 * @default Bearer
 	 */
 	authtype?: string;
 }
@@ -43,7 +45,7 @@ export interface FetchHelperOptions {
 	 */
 	baseurl?: string;
 	/**
-	 * If `true` all http requests with status >= 400 will throw a `HttpStatusError`
+	 * If `true` all http requests with status >= 400 will throw a {@link HttpStatusError}
 	 */
 	onlysuccessful?: boolean;
 	/**
@@ -73,6 +75,7 @@ export interface FetchHelperOptions {
 	/**
 	 * The http method used for the requests. Default method is `GET`.
 	 * See documentation of `node-fetch` for further details about format and default headers
+	 * @default GET
 	 */
 	method?: string;
 	/**
@@ -96,22 +99,26 @@ export interface FetchHelperOptions {
 	/**
 	 * Support gzip/deflate content encoding. `false` to disable.
 	 * See documentation of `node-fetch` for further details
+	 * @default true
 	 */
 	compress?: boolean; // =true support gzip/deflate content encoding. false to disable
 	/**
 	 * Maximum redirect count. `0` to not follow redirect. Default value is `20`.
 	 * See documentation of `node-fetch` for further details
+	 * @default 20
 	 */
 	follow?: number;
 	/**
 	 * Maximum response body size in bytes. `0` to disable. Default value is `0`.
 	 * See documentation of `node-fetch` for further details
+	 * @default 0
 	 */
 	size?: number;
 	/**
 	 * Request/response timeout in ms, it resets on redirect. `0` to disable (OS limit applies).
 	 * Signal is recommended instead.  Default value is `0`.
 	 * See documentation of `node-fetch` for further details
+	 * @default 0
 	 */
 	timeout?: number;
 }
@@ -141,7 +148,7 @@ export class FetchHelper {
 	/**
 	 * Set the default authentication mode for requests made with the object (changes options
 	 * passed in the constructor)
-	 * @param auth - An authentication description object - See `FetchAuth` and `FetchBasicAuth`
+	 * @param auth - An authentication description object - (See {@link FetchAuth} and {@link FetchBasicAuth})
 	 */
 	setAuth( auth: FetchAuth | FetchBasicAuth ): void;
 
@@ -153,7 +160,26 @@ export class FetchHelper {
 
 	/**
 	 * Sets the default behaviour on unsuccessful http requests (http status >= 400, changes options passed in the constructor)
-	 * @param onlysuccessful - If `true` all http requests with http status >= 400 will throw a `HttpStatusError`
+	 * @param onlysuccessful - If `true` all http requests with http status >= 400 will throw a {@link HttpStatusError}
 	 */
 	setOnlySuccesful( onlysuccessful: boolean ): void;
+}
+
+/** Error for fetch operations */
+export class FetchError extends Error {
+	/** error type code */
+	readonly type: string;
+
+	/**
+	 * Constructs a FetchError
+	 *
+	 * @param message - Error message for human
+	 * @param type - Error type code
+	 * @param systemError - For Node.js system error
+	 */
+	constructor( message: string, type: string, systemError?: Error );
+}
+
+/** Error for cancelled requests */
+export class AbortError extends Error {
 }

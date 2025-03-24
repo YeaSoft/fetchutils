@@ -131,3 +131,5 @@ function prepareAuth( auth ) {
 
 // exported entities
 exports.FetchHelper = FetchHelper;
+exports.FetchError = fetch.FetchError;
+exports.AbortError = fetch.AbortError;

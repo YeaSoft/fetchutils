@@ -94,7 +94,7 @@ export class RequestHelper extends FetchHelper {
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
 	 */
-	getGetJson( url: string, params?: Object, options?: RequestHelperOptions ): Promise<boolean | number | string | Array<any> | Object>;
+	getGetJson<T>( url: string, params?: Object, options?: RequestHelperOptions ): Promise<T>;
 
 	/**
 	 * Performs an http/https GET request.
@@ -207,7 +207,7 @@ export class RequestHelper extends FetchHelper {
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
 	 */
-	postGetJson( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<boolean | number | string | Array<any> | Object>;
+	postGetJson<T>( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<T>;
 
 	/**
 	 * Performs an http/https POST request.
@@ -356,7 +356,7 @@ export class RequestHelper extends FetchHelper {
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
 	 */
-	deleteGetJson( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<boolean | number | string | Array<any> | Object>;
+	deleteGetJson<T>( url: string, params?: string | Blob | ArrayBuffer | Readable | Duplex | Object, options?: RequestHelperOptions ): Promise<T>;
 
 	/**
 	 * Performs an http/https DELETE request.

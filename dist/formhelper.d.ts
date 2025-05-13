@@ -70,9 +70,9 @@ export class FormHelper extends FetchHelper {
 	 *              it is concatenated to the `baseurl`.
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<boolean | number | string | Array | Object>
+	 * @return Promise<any>
 	 */
-	postGetJson( url?: string, options?: FormHelperOptions ): Promise<boolean | number | string | Array<any> | Object>;
+	postGetJson<T>( url?: string, options?: FormHelperOptions ): Promise<T>;
 
 	/**
 	 * Submits the form.
@@ -102,9 +102,9 @@ export class FormHelper extends FetchHelper {
 	 *              it is concatenated to the `baseurl`.
 	 * @param options - Optional options or the http requests that will override the options
 	 *                  provided for the object.
-	 * @return Promise<boolean | number | string | Array | Object>
+	 * @return Promise<any>
 	 */
-	submitGetJson( url?: string, options?: FormHelperOptions ): Promise<boolean | number | string | Array<any> | Object>;
+	submitGetJson<T>( url?: string, options?: FormHelperOptions ): Promise<T>;
 
 	/**
 	 * Append data to the form.
